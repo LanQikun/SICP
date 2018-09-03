@@ -1,0 +1,3 @@
+调用该函数后，在第一层递归中，interleave会试图计算(pairs (stream-cdr s) (stream-cdr t))产生的第一个值，
+在第二层递归中同样如此，于是进入死循环。
+

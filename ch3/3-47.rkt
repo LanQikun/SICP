@@ -1,0 +1,47 @@
+(define (make-semaphore n)
+    (define (acquire)
+        (if (> n 0)
+            (begin (set! n (- n 1))
+                   'ok)
+            (acquire)))
+
+    (define (release)
+        (set! n (+ n 1))
+        'ok)
+
+    (define (dispatch mode)
+        (cond ((eq? mode 'acquire)
+                (acquire))
+              ((eq? mode 'release)
+                (release))
+              (else
+                (error "Unknown mode MAKE-SEMAPHORE" mode))))
+
+    dispatch)
+
+(define (make-semaphore n)
+    (let ((mutex (make-mutex)))
+        (define (acquire)
+            (mutex 'acquire)
+            (if (> n 0)                     
+                (begin (set! n (- n 1))     
+                       (mutex 'release)     
+                       'ok)
+                (begin (mutex 'release)     
+                       (acquire))))         
+
+        (define (release)
+            (mutex 'acquire)
+            (set! n (+ n 1))               
+            (mutex 'release)
+            'ok)
+
+        (define (dispatch mode)
+            (cond ((eq? mode 'acquire)
+                    (acquire))
+                  ((eq? mode 'release)
+                    (release))
+                  (else
+                    (error "Unknown mode MAKE-SEMAPHORE" mode))))
+
+        dispatch))

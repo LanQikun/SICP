@@ -1,0 +1,5 @@
+apply-generic调用了两次，第一次调用install-rectangular-package中的magnitude函数，
+第二次调用install-rectangular-package包中的magnitude 函数。
+
+ magnitude调用了三次，第一次调用的是外层的，第二次调用的是install-complex-package的，
+ 第三次调用的是install-rectangular-package的。
