@@ -1,5 +1,5 @@
 # Structure and Interpretation of Computer Programs
-This repo includes my solutions to [SICP](##Environment) exercise.
+This repo includes my solutions to SICP exercise.
 
 ## Environment
 DrRacket
